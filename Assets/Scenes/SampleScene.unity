@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 74980597}
   m_Layer: 0
   m_Name: Down
-  m_TagString: Untagged
+  m_TagString: DownWall
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 99999
+  m_text: 'Score: 99999'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -75.295135, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 145720908}
   m_Layer: 0
   m_Name: Paddle_1
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,6 +364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813ee6a5c32bbdb4eb85a2857088216d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 5
+  _horizontalLimitMax: 8.11
+  _horizontalLimitMin: -8.11
 --- !u!212 &145720906
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -648,7 +651,7 @@ GameObject:
   - component: {fileID: 728981892}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: HorizontalWall
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -725,7 +728,7 @@ GameObject:
   - component: {fileID: 954245033}
   m_Layer: 0
   m_Name: Up
-  m_TagString: Untagged
+  m_TagString: UpWall
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -837,6 +840,7 @@ GameObject:
   - component: {fileID: 1219597922}
   - component: {fileID: 1219597925}
   - component: {fileID: 1219597924}
+  - component: {fileID: 1219597926}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -973,6 +977,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1219597926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219597921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8872b7535ea4c654aaaaefb7890ba43a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 2040586832}
+  _iniBallSpeed: 3
 --- !u!1 &1675772825
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +1003,7 @@ GameObject:
   - component: {fileID: 1675772827}
   m_Layer: 0
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: HorizontalWall
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1210,7 +1228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 99999
+  m_text: 'Life: 3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1316,6 +1334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35523ff2c907404c8eca2e4f8133641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ball: {fileID: 1219597925}
+  _paddle: {fileID: 145720907}
+  _scoreText: {fileID: 103918613}
+  _lifeText: {fileID: 2004761064}
 --- !u!4 &2040586833
 Transform:
   m_ObjectHideFlags: 0

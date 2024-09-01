@@ -1,18 +1,62 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   [SerializeField]
+   private GameManager _gameManager;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   [SerializeField]
+   private float _iniBallSpeed;
+
+   private float _ballSpeed;
+
+   private Vector2 _direction;
+
+   private void Start() {
+      BallDirection();
+      _ballSpeed = _iniBallSpeed;
+   }
+
+   private void Update() {
+      transform.Translate(_direction * (_ballSpeed * Time.deltaTime));
+   }
+
+   private void OnCollisionEnter2D(Collision2D other) {
+      if (other.gameObject.CompareTag("DownWall")) {
+         _gameManager.LoseLifeAndVerifyGameOver();
+         _gameManager.ResetPaddle();
+
+         if (isActiveAndEnabled)
+            StartCoroutine(ResetBall());
+      }
+
+      if (other.gameObject.CompareTag("HorizontalWall"))
+         _direction = new Vector2(-_direction.x, _direction.y);
+
+      if (other.gameObject.CompareTag("UpWall"))
+         _direction = new Vector2(_direction.x, -_direction.y);
+
+      if (other.gameObject.CompareTag("Paddle"))
+         _direction = new Vector2(_direction.x, -_direction.y);
+   }
+
+   private IEnumerator ResetBall() {
+      yield return new WaitForSeconds(3f);
+      _gameManager.ResetBall();
+   }
+
+   private void BallDirection() {
+      float _x = Random.Range(-1, 1);
+      float _y = Random.Range(-1, 1);
+
+      while (_x == 0)
+         _x = Random.Range(-1f, 1f);
+
+      while (_y == 0)
+         _y = Random.Range(-1f, 1f);
+
+      _direction = new Vector2(_x, _y);
+   }
 }
