@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
    private Rigidbody2D _ball;
 
    [SerializeField]
+   private GameObject _block;
+
+   [SerializeField]
    private Transform _paddle;
 
    [SerializeField]
@@ -18,7 +21,31 @@ public class GameManager : MonoBehaviour
       _ball.gameObject.SetActive(false);
       ShowScore();
       ShowLife();
+      CreateBlocks();
       Invoke(nameof(ResetGame), 3);
+   }
+
+   private void CreateBlocks() {
+      Vector3 posIni = new(-8.15f, 4f, 0);
+      Vector3 pos = Vector3.zero;
+      GameObject obj;
+
+      for (int i = 0; i < 6; i++) { // qtd de linhas
+         pos = new Vector3(pos.x, pos.y + 5f * i, pos.z);
+         print("antes: " + pos);
+
+         for (int j = 0; j < 14; j++) { // qtd de blocos por linha
+            if (j == 0) {
+               obj = Instantiate(_block, posIni, transform.rotation);
+               print("depois j=0: " + pos);
+               pos = obj.transform.position;
+            } else {
+               pos = new Vector3(pos.x + 1.25f, pos.y, pos.z);
+               print("depois j!=0: " + pos);
+               obj = Instantiate(_block, pos, transform.rotation);
+            }
+         }
+      }
    }
 
    private void ResetGame() {

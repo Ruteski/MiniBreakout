@@ -1335,6 +1335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ball: {fileID: 1219597925}
+  _block: {fileID: 8991596961450578514, guid: d7c0cd3dff67b284f93954346ffbf28f, type: 3}
   _paddle: {fileID: 145720907}
   _scoreText: {fileID: 103918613}
   _lifeText: {fileID: 2004761064}
