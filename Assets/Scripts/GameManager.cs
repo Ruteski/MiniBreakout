@@ -1,57 +1,97 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-   [SerializeField]
-   private Rigidbody2D _ball;
+   public enum Options
+   {
+      aspect_16_09,
+      aspect_16_10
+   }
 
    [SerializeField]
-   private GameObject _block;
+   private Options limitAspectWindow;
 
    [SerializeField]
-   private Transform _paddle;
+   private Ball ball;
 
    [SerializeField]
-   private TextMeshProUGUI _scoreText, _lifeText;
+   private GameObject block;
 
+   [SerializeField]
+   private Paddle paddle;
+
+   [SerializeField]
+   private Transform leftWall;
+
+   [SerializeField]
+   private Transform rightWall;
+
+   [SerializeField]
+   private TextMeshProUGUI scoreText, lifeText;
+
+   [SerializeField]
+   private int scoreToAddBallSpeed;
+
+   private float _horizontalLimitMax, _horizontalLimitMin;
+
+   private bool _isExecCreateBlocks;
    private int _score, _life;
+   private float _verticalLimitMax, _verticalLimitMin;
 
    private void Start() {
-      _ball.gameObject.SetActive(false);
+      ball.gameObject.SetActive(false);
       ShowScore();
       ShowLife();
       CreateBlocks();
+      ApplyLimitAspectWindow();
       Invoke(nameof(ResetGame), 3);
    }
 
-   private void CreateBlocks() {
-      Vector3 posIni = new(-8.15f, 4f, 0);
-      Vector3 pos = Vector3.zero;
-      GameObject obj;
+   private void ApplyLimitAspectWindow() {
+      switch (limitAspectWindow) {
+         case Options.aspect_16_09:
+            _horizontalLimitMax = 8.1f;
+            _horizontalLimitMin = -8.1f;
+            _verticalLimitMax = 9f;
+            _verticalLimitMin = -9f;
 
-      for (int i = 0; i < 6; i++) { // qtd de linhas
-         pos = new Vector3(pos.x, pos.y + 5f * i, pos.z);
-         print("antes: " + pos);
+            break;
+         case Options.aspect_16_10:
+            _horizontalLimitMax = 7.23f;
+            _horizontalLimitMin = -7.23f;
+            _verticalLimitMax = 8.11f;
+            _verticalLimitMin = -8.11f;
 
-         for (int j = 0; j < 14; j++) { // qtd de blocos por linha
-            if (j == 0) {
-               obj = Instantiate(_block, posIni, transform.rotation);
-               print("depois j=0: " + pos);
-               pos = obj.transform.position;
-            } else {
-               pos = new Vector3(pos.x + 1.25f, pos.y, pos.z);
-               print("depois j!=0: " + pos);
-               obj = Instantiate(_block, pos, transform.rotation);
-            }
+            break;
+      }
+
+      paddle.horizontalLimitMin = _horizontalLimitMin;
+      paddle.horizontalLimitMax = _horizontalLimitMax;
+
+      leftWall.position = new Vector2(_verticalLimitMin, leftWall.position.y);
+      rightWall.position = new Vector2(_verticalLimitMax, rightWall.position.y);
+   }
+
+   public void CreateBlocks() {
+      for (int y = 0; y < 6; y++) { // qtd de linhas
+         for (int x = 0; x < 14; x++) { // qtd de colunas
+            float posX = -7.48f + x * 1.15f;
+            float posY = 1.9f + y * .4f;
+            Instantiate(block, new Vector2(posX, posY), Quaternion.identity);
          }
       }
    }
 
    private void ResetGame() {
-      _ball.gameObject.SetActive(true);
+      ball.gameObject.SetActive(true);
       _score = 0;
       _life = 3;
+
+      if (_isExecCreateBlocks) {
+         CreateBlocks();
+      }
 
       ResetBall();
       ResetPaddle();
@@ -60,29 +100,49 @@ public class GameManager : MonoBehaviour
    }
 
    public void ResetPaddle() {
-      _paddle.transform.position = new Vector2(0, _paddle.transform.position.y);
+      paddle.transform.position = new Vector2(0, paddle.transform.position.y);
    }
 
    public void ResetBall() {
-      _ball.transform.position = Vector2.zero;
+      ball.transform.position = Vector2.zero;
    }
 
    private void ShowLife() {
-      _lifeText.text = "Life: " + _life;
+      lifeText.text = "Life: " + _life;
    }
 
    private void ShowScore() {
-      _scoreText.text = "Score: " + _score;
+      scoreText.text = "Score: " + _score;
+   }
+
+   private void Reload() {
+      SceneManager.LoadScene(0);
    }
 
    public void LoseLifeAndVerifyGameOver() {
       _life -= 1;
 
+      // game over
       if (_life < 1) {
-         _ball.gameObject.SetActive(false);
-         Invoke(nameof(ResetGame), 3);
+         ball.gameObject.SetActive(false);
+         _isExecCreateBlocks = true;
+         Invoke(nameof(Reload), 3);
       }
 
       ShowLife();
+   }
+
+   public void AddPoint() {
+      _score++;
+      ShowScore();
+
+      if (_score == scoreToAddBallSpeed) {
+         ball.IncrementBallSpeed();
+      }
+
+      if (_score >= 84) {
+         _isExecCreateBlocks = true;
+         Reload();
+      }
    }
 }

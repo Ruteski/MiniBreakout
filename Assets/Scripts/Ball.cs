@@ -28,18 +28,28 @@ public class Ball : MonoBehaviour
          _gameManager.LoseLifeAndVerifyGameOver();
          _gameManager.ResetPaddle();
 
-         if (isActiveAndEnabled)
+         if (isActiveAndEnabled) {
             StartCoroutine(ResetBall());
+         }
       }
 
-      if (other.gameObject.CompareTag("HorizontalWall"))
+      if (other.gameObject.CompareTag("HorizontalWall")) {
          _direction = new Vector2(-_direction.x, _direction.y);
+      }
 
-      if (other.gameObject.CompareTag("UpWall"))
+      if (other.gameObject.CompareTag("UpWall")) {
          _direction = new Vector2(_direction.x, -_direction.y);
+      }
 
-      if (other.gameObject.CompareTag("Paddle"))
+      if (other.gameObject.CompareTag("Paddle")) {
          _direction = new Vector2(_direction.x, -_direction.y);
+      }
+
+      if (other.gameObject.CompareTag("Block")) {
+         _direction = new Vector2(_direction.x, -_direction.y);
+         _gameManager.AddPoint();
+         Destroy(other.gameObject);
+      }
    }
 
    private IEnumerator ResetBall() {
@@ -51,12 +61,14 @@ public class Ball : MonoBehaviour
       float _x = Random.Range(-1, 1);
       float _y = Random.Range(-1, 1);
 
-      while (_x == 0)
-         _x = Random.Range(-1f, 1f);
+      while (_x == 0) _x = Random.Range(-1f, 1f);
 
-      while (_y == 0)
-         _y = Random.Range(-1f, 1f);
+      while (_y == 0) _y = Random.Range(-1f, 1f);
 
       _direction = new Vector2(_x, _y);
+   }
+
+   public void IncrementBallSpeed() {
+      _ballSpeed += 1;
    }
 }

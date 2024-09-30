@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 74980595}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.465, y: -5.62, z: 0}
+  m_LocalPosition: {x: 0.03, y: -5.146, z: 0}
   m_LocalScale: {x: 17.964048, y: 0.2562, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -364,9 +364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813ee6a5c32bbdb4eb85a2857088216d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _horizontalLimitMax: 8.11
-  _horizontalLimitMin: -8.11
+  _speed: 12
+  horizontalLimitMax: 0
+  horizontalLimitMin: 0
 --- !u!212 &145720906
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -428,7 +428,7 @@ Transform:
   m_GameObject: {fileID: 145720904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.3, z: 0}
+  m_LocalPosition: {x: -0, y: -4.5, z: 0}
   m_LocalScale: {x: 1.5, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -665,7 +665,7 @@ Transform:
   m_GameObject: {fileID: 728981890}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.63, y: -0.35, z: -0.026924463}
+  m_LocalPosition: {x: 9, y: -0.02, z: -0.026924463}
   m_LocalScale: {x: 0.224, y: 10.268322, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -742,7 +742,7 @@ Transform:
   m_GameObject: {fileID: 954245031}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.465, y: 4.79, z: 0}
+  m_LocalPosition: {x: 0, y: 5.129, z: 0}
   m_LocalScale: {x: 17.964048, y: 0.2562, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -818,7 +818,7 @@ Transform:
   m_GameObject: {fileID: 1176455036}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4876323, y: 0.41779527, z: 0.026924463}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -990,7 +990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 2040586832}
-  _iniBallSpeed: 3
+  _iniBallSpeed: 4
 --- !u!1 &1675772825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,7 +1017,7 @@ Transform:
   m_GameObject: {fileID: 1675772825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.562, y: -0.35, z: -0.026924463}
+  m_LocalPosition: {x: -9, y: 0.01, z: -0.026924463}
   m_LocalScale: {x: 0.224, y: 10.268322, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1334,11 +1334,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35523ff2c907404c8eca2e4f8133641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ball: {fileID: 1219597925}
-  _block: {fileID: 8991596961450578514, guid: d7c0cd3dff67b284f93954346ffbf28f, type: 3}
-  _paddle: {fileID: 145720907}
-  _scoreText: {fileID: 103918613}
-  _lifeText: {fileID: 2004761064}
+  limitAspectWindow: 0
+  ball: {fileID: 1219597926}
+  block: {fileID: 8991596961450578514, guid: d7c0cd3dff67b284f93954346ffbf28f, type: 3}
+  paddle: {fileID: 145720905}
+  leftWall: {fileID: 1675772826}
+  rightWall: {fileID: 728981891}
+  scoreText: {fileID: 103918613}
+  lifeText: {fileID: 2004761064}
+  scoreToAddBallSpeed: 25
 --- !u!4 &2040586833
 Transform:
   m_ObjectHideFlags: 0
@@ -1359,9 +1363,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1176455037}
   - {fileID: 2040586833}
   - {fileID: 1219597923}
   - {fileID: 145720907}
-  - {fileID: 1176455037}
   - {fileID: 1977539686}
   - {fileID: 694265044}
